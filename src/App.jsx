@@ -40,9 +40,31 @@ export default function App() {
   };
 
   return (
-    <div style={{padding:"20px"}}>
+  <div className="container">
 
-      <h1>Inventory Orders</h1>
+    <h1>📦 Inventory Dashboard</h1>
+
+    <div className="cards">
+
+      <div className="card">
+        <h3>Total Orders</h3>
+        <p>{orders.length}</p>
+      </div>
+
+      <div className="card">
+        <h3>Pending</h3>
+        <p>
+          {
+            orders.filter(
+              o => o.Status === "Pending"
+            ).length
+          }
+        </p>
+      </div>
+
+    </div>
+
+    <div className="form">
 
       <input
         placeholder="Customer"
@@ -55,8 +77,6 @@ export default function App() {
         }
       />
 
-      <br/><br/>
-
       <input
         placeholder="Product"
         value={form.product}
@@ -67,8 +87,6 @@ export default function App() {
           })
         }
       />
-
-      <br/><br/>
 
       <input
         placeholder="Quantity"
@@ -81,24 +99,37 @@ export default function App() {
         }
       />
 
-      <br/><br/>
-
       <button onClick={submitOrder}>
         Save Order
       </button>
 
-      <hr/>
+    </div>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
 
       {orders.map((order,index)=>(
-        <div key={index}>
-          <b>{order.CustomerName}</b>
-          {" - "}
-          {order.Product}
-          {" - "}
-          {order.Status}
-        </div>
+
+        <tr key={index}>
+          <td>{order.CustomerName}</td>
+          <td>{order.Product}</td>
+          <td>{order.Status}</td>
+        </tr>
+
       ))}
 
-    </div>
-  );
-}
+      </tbody>
+
+    </table>
+
+  </div>
+);
